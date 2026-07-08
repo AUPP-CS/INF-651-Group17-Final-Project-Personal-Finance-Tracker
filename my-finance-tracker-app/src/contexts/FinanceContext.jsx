@@ -1,0 +1,204 @@
+import { createContext, useContext, useMemo, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
+
+const FinanceContext = createContext();
+
+export const useFinance = () => useContext(FinanceContext);
+
+export function FinanceProvider({ children }) {
+    
+    // Data
+    const [transactions, setTransactions] = useLocalStorage("transactions", []);
+    const [budgets, setBudgets] = useLocalStorage("budgets", []);
+    const [goal, setGoal] = useLocalStorage("goal", {});
+
+    const categories = [
+        "Food",
+        "Transport",
+        "Shopping",
+        "Entertainment",
+        "Bills",
+        "Salary",
+        "Investment",
+        "Healthcare",
+        "Other",
+    ];
+
+    // Filters
+    const [filters, setFilters] = useState({
+        category: "All",
+        type: "All",
+        search: "",
+        sort: "Newest",
+    });
+
+    // Transaction CRUD
+    const addTransaction = (transaction) => {
+        const newTransaction = {
+            id: crypto.randomUUID(),
+            ...transaction,
+        };
+
+        setTransactions((prev) => [newTransaction, ...prev]);
+    };
+
+    const deleteTransaction = (id) => {
+        setTransactions((prev) =>
+            prev.filter((transaction) => transaction.id !== id)
+        );
+    };
+
+    const updateTransaction = (id, updatedData) => {
+        setTransactions((prev) =>
+            prev.map((transaction) =>
+                transaction.id === id
+                    ? { ...transaction, ...updatedData }
+                    : transaction
+            )
+        );
+    };
+
+    // Budget
+    const updateBudget = (category, limit) => {
+        setBudgets((prev) =>
+            prev.map((budget) =>
+                budget.category === category
+                    ? { ...budget, limit: Number(limit) }
+                    : budget
+            )
+        );
+    };
+
+    const addBudget = (budget) => {
+        const exists = budgets.some(
+            (b) => b.category.toLowerCase() === budget.category.toLowerCase()
+        );
+
+        if (exists) return false;
+        setBudgets((prev) => [...prev, budget]);
+        return true;
+    };
+
+    const deleteBudget = (category) => {
+        setBudgets((prev) =>
+            prev.filter((budget) => budget.category !== category)
+        );
+    };
+
+    // Goal
+    const updateGoal = (newGoal) => {
+        setGoal(newGoal);
+    };
+
+    const addSavings = (amount) => {
+        setGoal((prev) => ({
+            ...prev,
+            saved: prev.saved + Number(amount),
+        }));
+    };
+
+    // Dashboard Calculations
+    const totalIncome = useMemo(() => {
+        return transactions
+            .filter((transaction) => transaction.type === "Income")
+            .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
+    }, [transactions]);
+
+    const totalExpense = useMemo(() => {
+        return transactions
+            .filter((transaction) => transaction.type === "Expense")
+            .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
+    }, [transactions]);
+
+    const balance = totalIncome - totalExpense;
+
+    // Filtered Transactions
+    const filteredTransactions = useMemo(() => {
+        let data = [...transactions];
+
+        if (filters.category !== "All") {
+            data = data.filter(
+                (transaction) => transaction.category === filters.category
+            );
+        }
+
+        if (filters.type !== "All") {
+            data = data.filter(
+                (transaction) => transaction.type === filters.type
+            );
+        }
+
+        if (filters.search.trim()) {
+            data = data.filter((transaction) =>
+                transaction.title
+                    .toLowerCase()
+                    .includes(filters.search.toLowerCase())
+            );
+        }
+
+        data.sort((a, b) => {
+            if (filters.sort === "Newest") {
+                return new Date(b.date) - new Date(a.date);
+            }
+            return new Date(a.date) - new Date(b.date);
+        });
+
+        return data;
+    }, [transactions, filters]);
+
+    // Budget Helpers
+    const getCategorySpent = (category) => {
+        return transactions
+            .filter(
+                (transaction) =>
+                    transaction.category === category &&
+                    transaction.type === "Expense"
+            )
+            .reduce((sum, transaction) => sum + Number(transaction.amount), 0);
+    };
+
+    const getBudgetProgress = (category) => {
+        const budget = budgets.find(
+            (budget) => budget.category === category
+        );
+        if (!budget) return 0;
+        return (getCategorySpent(category) / budget.limit) * 100;
+    };
+
+    // Value for ContextProvider
+    const value = {
+        transactions,
+        budgets,
+        goal,
+        categories,
+
+        filters,
+        setFilters,
+
+        filteredTransactions,
+
+        addTransaction,
+        deleteTransaction,
+        updateTransaction,
+
+        addBudget,
+        updateBudget,
+        deleteBudget,
+
+        updateGoal,
+        addSavings,
+
+        totalIncome,
+        totalExpense,
+        balance,
+
+        getCategorySpent,
+        getBudgetProgress,
+    };
+
+    return (
+        <FinanceContext.Provider value={value}>
+            {children}
+        </FinanceContext.Provider>
+    );
+}
