@@ -22,9 +22,11 @@ export default function Sidebar() {
     <aside className="hidden lg:flex w-64 shrink-0 flex-col justify-between bg-base-100 border-r border-base-300 min-h-screen p-5">
       <div>
         <div className="flex items-center gap-2 mb-8 px-1">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-primary-content font-bold">
-            F
-          </div>
+          <img 
+            src="/src/assets/logo.png"
+            alt="Financial Tracker Logo" 
+            className="w-12 h-12 rounded-xl object-cover"
+          />
           <span className="text-xl font-bold tracking-tight">Financial Tracker</span>
         </div>
 
