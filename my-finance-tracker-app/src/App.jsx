@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 function App() {
   return (  
-    <div className="flex">
+    <div className="lg:flex min-h-screen">
       <Sidebar />
       <main className="flex-1 min-w-0">
         <Routes>
