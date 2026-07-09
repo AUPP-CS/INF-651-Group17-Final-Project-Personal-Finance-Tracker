@@ -13,8 +13,7 @@ const LINKS = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/transactions", label: "Transactions", icon: ArrowLeftRight },
   { to: "/budgets", label: "Budget", icon: Wallet },
-  // Analytics and Goals isn't built yet — wire this up once there's a page for it.
-  { to: "/goals", label: "Savings Goal", icon: Target },
+  { to: "/goals", label: "Savings Goals", icon: Target },
   { to: "/analytics", label: "Analytics", icon: BarChart3 },
 ];
 
