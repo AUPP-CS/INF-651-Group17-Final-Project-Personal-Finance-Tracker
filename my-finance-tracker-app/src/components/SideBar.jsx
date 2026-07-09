@@ -19,7 +19,7 @@ const LINKS = [
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:flex w-64 shrink-0 flex-col justify-between bg-base-100 border-r border-base-300 min-h-screen p-5">
+    <aside className="hidden lg:flex w-64 shrink-0 flex-col justify-between bg-base-100 border-r border-base-300 sticky top-0 h-screen overflow-y-auto p-5">
       <div>
         <div className="flex items-center gap-2 mb-8 px-1">
           <img 
@@ -56,8 +56,6 @@ export default function Sidebar() {
       </div>
 
       <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-error hover:bg-error/10">
-        <LogOut size={18} />
-        Logout
       </button>
     </aside>
   );
