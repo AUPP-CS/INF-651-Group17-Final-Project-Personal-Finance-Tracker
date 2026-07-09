@@ -12,7 +12,7 @@ export default function TransactionList() {
 
   if (filteredTransactions.length === 0) {
     return (
-      <div className="card bg-base-100 shadow-xl">
+      <div className="card bg-base-100 shadow-xl max-h-10">
         <div className="card-body flex flex-col items-center justify-center py-16">
           <Wallet className="w-16 h-16 text-gray-400 mb-4" />
 
@@ -29,7 +29,7 @@ export default function TransactionList() {
   return (
     <>
       {/* Desktop Table */}
-      <div className="hidden lg:block card bg-base-100 shadow-xl overflow-x-scroll">
+      <div className="hidden lg:block card bg-base-100 shadow-xl max-h-100 overflow-scroll">
         <div className="card-body p-0">
           <table className="table table-zebra">
             <thead>

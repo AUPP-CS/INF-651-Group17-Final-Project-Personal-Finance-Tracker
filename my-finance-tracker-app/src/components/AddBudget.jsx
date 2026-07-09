@@ -38,8 +38,8 @@ export default function AddBudget() {
   }, [showSuccess]);
 
   return (
-    <div className="card bg-base-100 border border-base-300 shadow-xl w-full max-w-sm mx-auto">
-      <div className="card-body">
+    <div className="card bg-base-100 border border-base-300 shadow-xl w-full max-w-lg mx-auto">
+      <div className="card-body flex justify-center">
         <h2 className="card-title mb-2">Add New Budget</h2>
         <form onSubmit={handleAddBudget} className="flex flex-col gap-5">
           <select
