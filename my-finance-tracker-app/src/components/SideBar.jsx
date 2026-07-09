@@ -93,7 +93,6 @@ export default function Sidebar() {
         </nav>
 
         <button className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-error shrink-0">
-          <LogOut size={18} />
         </button>
       </header>
     </>
