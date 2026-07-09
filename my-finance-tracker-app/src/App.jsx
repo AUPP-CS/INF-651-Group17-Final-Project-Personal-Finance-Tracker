@@ -3,8 +3,8 @@ import Transactions from "./pages/Transactions";
 import Budgets from "./pages/Budgets";
 import Dashboard from "./pages/Dashboard";
 import Sidebar from "./components/SideBar";
-import { useEffect } from "react";
-import SwitchTheme from "./components/SwitchTheme";
+import Goals from "./pages/Goals";
+import Analytics from "./pages/Analytics";
 
 function App() {
   return (
@@ -19,7 +19,8 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/budgets" element={<Budgets />} />
-
+            <Route path="/goals" element={<Goals />} />
+            <Route path="/analytics" element={<Analytics />} />
             {/* <Route path='*' element={} /> */}
           </Routes>
         </main>
