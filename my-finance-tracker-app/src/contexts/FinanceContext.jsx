@@ -10,7 +10,7 @@ export function FinanceProvider({ children }) {
     // Data
     const [transactions, setTransactions] = useLocalStorage("transactions", []);
     const [budgets, setBudgets] = useLocalStorage("budgets", []);
-    const [goal, setGoal] = useLocalStorage("goal", {});
+    const [goals, setGoals] = useLocalStorage("goals", []);
 
     const categories = [
         "Food",
@@ -85,23 +85,34 @@ export function FinanceProvider({ children }) {
         );
     };
 
-    // Goal
-    const updateGoal = (newGoal) => {
-        setGoal(newGoal);
+    // Goals
+    const addGoal = (goal) => {
+        const newGoal = {
+            id: crypto.randomUUID(),
+            title: goal.title,
+            target: Number(goal.target),
+            saved: Number(goal.saved) || 0,
+        };
+        setGoals((prev) => [...prev, newGoal]);
     };
 
-    const addSavings = (amount) => {
-        setGoal((prev) => ({
-            ...prev,
-            saved: prev.saved + Number(amount),
-        }));
+    const deleteGoal = (id) => {
+        setGoals((prev) => prev.filter((g) => g.id !== id));
+    };
+
+    const addSavingsToGoal = (id, amount) => {
+        setGoals((prev) =>
+            prev.map((g) =>
+                g.id === id ? { ...g, saved: g.saved + Number(amount) } : g
+            )
+        );
     };
 
     // Reset everything back to a fresh app state
     const resetAll = () => {
         setTransactions([]);
         setBudgets([]);
-        setGoal({});
+        setGoals([]);
     };
 
     // Dashboard Calculations
@@ -176,7 +187,7 @@ export function FinanceProvider({ children }) {
     const value = {
         transactions,
         budgets,
-        goal,
+        goals,
         categories,
 
         filters,
@@ -192,8 +203,9 @@ export function FinanceProvider({ children }) {
         updateBudget,
         deleteBudget,
 
-        updateGoal,
-        addSavings,
+        addGoal,
+        deleteGoal,
+        addSavingsToGoal,
         resetAll,
 
         totalIncome,

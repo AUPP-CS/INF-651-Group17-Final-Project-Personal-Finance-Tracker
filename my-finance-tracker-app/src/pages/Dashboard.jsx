@@ -17,7 +17,7 @@ const formatCurrency = (amount) =>
   );
 
 export default function Dashboard() {
-  const { transactions, totalIncome, totalExpense, balance, goal } = useFinance();
+  const { transactions, totalIncome, totalExpense, balance, goals } = useFinance();
   const navigate = useNavigate();
 
   const recentTransactions = useMemo(
@@ -28,10 +28,10 @@ export default function Dashboard() {
     [transactions]
   );
 
-  const hasGoal = goal && goal.target > 0;
-  const goalProgress = hasGoal
-    ? Math.min((Number(goal.saved) / Number(goal.target)) * 100, 100)
-    : 0;
+  const hasGoals = goals && goals.length > 0;
+  const totalSaved = goals.reduce((sum, g) => sum + Number(g.saved), 0);
+  const totalTarget = goals.reduce((sum, g) => sum + Number(g.target), 0);
+  const goalProgress = totalTarget > 0 ? Math.min((totalSaved / totalTarget) * 100, 100) : 0;
 
   const STAT_CARDS = [
     {
@@ -56,12 +56,12 @@ export default function Dashboard() {
       bg: "bg-error/10",
     },
     {
-      label: hasGoal ? "Savings Goal" : "Savings",
-      value: hasGoal ? Number(goal.saved) : balance,
+      label: hasGoals ? "Savings Goals" : "Savings",
+      value: hasGoals ? totalSaved : balance,
       icon: Target,
       tone: "text-info",
       bg: "bg-info/10",
-      suffix: hasGoal ? ` / ${formatCurrency(goal.target)}` : "",
+      suffix: hasGoals ? ` / ${formatCurrency(totalTarget)}` : "",
     },
   ];
 
@@ -150,19 +150,21 @@ export default function Dashboard() {
         <div className="flex flex-col gap-6">
           <div className="card bg-base-100 shadow-lg">
             <div className="card-body">
-              <h2 className="card-title">Savings Goal</h2>
-              {hasGoal ? (
-                <>
-                  <div className="flex justify-between text-sm mt-2 mb-1">
-                    <span className="font-medium">{goal.title || "Your goal"}</span>
-                    <span className="font-bold">{goalProgress.toFixed(0)}%</span>
-                  </div>
-                  <progress className="progress progress-primary w-full" value={goalProgress} max="100" />
-                  <p className="text-xs opacity-60 mt-2">
-                    {formatCurrency(goal.saved)} of {formatCurrency(goal.target)}
-                  </p>
-                </>
-              ) : (
+            <h2 className="card-title">Savings Goals</h2>
+            {hasGoals ? (
+              <>
+                <div className="flex justify-between text-sm mt-2 mb-1">
+                  <span className="font-medium">
+                    {goals.length} active goal{goals.length > 1 ? "s" : ""}
+                  </span>
+                  <span className="font-bold">{goalProgress.toFixed(0)}%</span>
+                </div>
+                <progress className="progress progress-primary w-full" value={goalProgress} max="100" />
+                <p className="text-xs opacity-60 mt-2">
+                  {formatCurrency(totalSaved)} of {formatCurrency(totalTarget)}
+                </p>
+              </>
+            ) : (
                 <p className="text-sm opacity-60">
                   You haven't set a savings goal yet.{" "}
                   <button className="link link-primary" onClick={() => navigate("/goals")}>

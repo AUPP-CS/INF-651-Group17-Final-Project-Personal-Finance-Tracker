@@ -48,7 +48,7 @@ sidebar desktop
   @apply bg-primary text-primary-content;
 }
 
-/* 
+/*
 mobile
 */
 .theme-toggle svg {
@@ -88,10 +88,9 @@ mobile
   @apply bg-primary text-primary-content;
 }
 
-/* 
+/*
 reset button
 */
-
 .reset-link {
   @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-error;
 }
@@ -107,7 +106,6 @@ reset button
 /*
 goals
 */
-
 .goals-page {
   @apply min-h-screen bg-base-200 p-4 md:p-8;
 }
@@ -124,12 +122,16 @@ goals
   @apply text-base-content/60 mt-2;
 }
 
-.goals-content {
-  @apply max-w-xl;
+.goals-layout {
+  @apply flex flex-col gap-6;
+}
+
+.goals-grid {
+  @apply grid gap-6 sm:grid-cols-2 xl:grid-cols-3;
 }
 
 .goal-form-card {
-  @apply card bg-base-100 shadow-xl p-6;
+  @apply card bg-base-100 shadow-xl p-6 max-w-xl;
 }
 
 .goal-form-title {
@@ -148,10 +150,104 @@ goals
   @apply btn btn-primary;
 }
 
+.goal-delete-btn {
+  @apply btn btn-ghost btn-sm btn-square text-error;
+}
+
+/*
+goal card
+*/
+.goal-card {
+  @apply card bg-base-100 shadow-xl;
+}
+
+.goal-card-body {
+  @apply card-body;
+}
+
+.goal-card-header {
+  @apply flex justify-between items-center;
+}
+
+.goal-card-identity {
+  @apply flex items-center gap-3;
+}
+
+.goal-icon-badge {
+  @apply p-3 rounded-full bg-primary/10;
+}
+
+.goal-card-title {
+  @apply card-title;
+}
+
+.goal-card-subtitle {
+  @apply text-sm opacity-60;
+}
+
+.goal-card-actions {
+  @apply flex items-center gap-2;
+}
+
+.goal-amounts {
+  @apply mt-6;
+}
+
+.goal-amounts-row {
+  @apply flex justify-between;
+}
+
+.goal-amount-label {
+  @apply text-sm opacity-60;
+}
+
+.goal-amount-saved {
+  @apply text-3xl font-bold text-success;
+}
+
+.goal-amount-target-wrap {
+  @apply text-right;
+}
+
+.goal-amount-target {
+  @apply text-3xl font-bold;
+}
+
+.goal-progress-block {
+  @apply mt-6;
+}
+
+.goal-progress-row {
+  @apply flex justify-between mb-2;
+}
+
+.goal-progress-bar {
+  @apply progress progress-primary w-full;
+}
+
+.goal-remaining {
+  @apply mt-5 flex items-center gap-2;
+}
+
+.goal-add-savings-row {
+  @apply mt-6 flex gap-3;
+}
+
+.goal-add-savings-input {
+  @apply input flex-1;
+}
+
+.goal-add-savings-btn {
+  @apply btn btn-primary;
+}
+
+.goal-completed-alert {
+  @apply alert alert-success mt-6;
+}
+
 /*
 analytics
 */
-
 .analytics-page {
   @apply min-h-screen bg-base-200 p-4 md:p-8;
 }
@@ -172,8 +268,16 @@ analytics
   @apply grid gap-6 xl:grid-cols-2;
 }
 
+.analytics-section {
+  @apply mt-6;
+}
+
 .chart-card {
   @apply card bg-base-100 shadow-lg p-6;
+}
+
+.chart-card-wide {
+  @apply card bg-base-100 shadow-lg p-6 xl:col-span-2;
 }
 
 .chart-card-title {

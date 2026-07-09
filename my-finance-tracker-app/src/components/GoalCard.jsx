@@ -1,84 +1,78 @@
 import { useState } from "react";
-import { Target, Plus, Trophy, Wallet } from "lucide-react";
-
+import { Target, Plus, Trophy, Wallet, Trash2 } from "lucide-react";
 import { useFinance } from "../contexts/FinanceContext";
 
-export default function GoalCard() {
-  const { goal, addSavings } = useFinance();
+export default function GoalCard({ goal }) {
+  const { addSavingsToGoal, deleteGoal } = useFinance();
   const [amount, setAmount] = useState("");
   const progress = Math.min((goal.saved / goal.target) * 100, 100);
   const remaining = goal.target - goal.saved;
-  
+
   const handleAddSavings = () => {
     if (!amount || Number(amount) <= 0) return;
-
-    addSavings(Number(amount));
-
+    addSavingsToGoal(goal.id, Number(amount));
     setAmount("");
   };
 
-  return (
-    <div className="card bg-base-100 shadow-xl">
-      <div className="card-body">
-        {/* Header */}
+  const handleDelete = () => {
+    if (confirm(`Delete "${goal.title}"? This can't be undone.`)) {
+      deleteGoal(goal.id);
+    }
+  };
 
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="p-3 rounded-full bg-primary/10">
+  return (
+    <div className="goal-card">
+      <div className="goal-card-body">
+        {/* Header */}
+        <div className="goal-card-header">
+          <div className="goal-card-identity">
+            <div className="goal-icon-badge">
               <Target className="text-primary" size={24} />
             </div>
-
             <div>
-              <h2 className="card-title">{goal.title}</h2>
-
-              <p className="text-sm opacity-60">Savings Goal</p>
+              <h2 className="goal-card-title">{goal.title}</h2>
+              <p className="goal-card-subtitle">Savings Goal</p>
             </div>
           </div>
 
-          {progress >= 100 && <Trophy className="text-warning" size={28} />}
+          <div className="goal-card-actions">
+            {progress >= 100 && <Trophy className="text-warning" size={28} />}
+            <button
+              className="goal-delete-btn"
+              onClick={handleDelete}
+              aria-label={`Delete ${goal.title}`}
+            >
+              <Trash2 size={18} />
+            </button>
+          </div>
         </div>
 
         {/* Amount */}
-
-        <div className="mt-6">
-          <div className="flex justify-between">
+        <div className="goal-amounts">
+          <div className="goal-amounts-row">
             <div>
-              <p className="text-sm opacity-60">Saved</p>
-
-              <p className="text-3xl font-bold text-success">
-                ${goal.saved.toFixed(2)}
-              </p>
+              <p className="goal-amount-label">Saved</p>
+              <p className="goal-amount-saved">${goal.saved.toFixed(2)}</p>
             </div>
-
-            <div className="text-right">
-              <p className="text-sm opacity-60">Target</p>
-
-              <p className="text-3xl font-bold">${goal.target.toFixed(2)}</p>
+            <div className="goal-amount-target-wrap">
+              <p className="goal-amount-label">Target</p>
+              <p className="goal-amount-target">${goal.target.toFixed(2)}</p>
             </div>
           </div>
         </div>
 
         {/* Progress */}
-
-        <div className="mt-6">
-          <div className="flex justify-between mb-2">
+        <div className="goal-progress-block">
+          <div className="goal-progress-row">
             <span className="text-sm">Progress</span>
-
             <span className="font-bold">{progress.toFixed(0)}%</span>
           </div>
-
-          <progress
-            className="progress progress-primary w-full"
-            value={progress}
-            max="100"
-          />
+          <progress className="goal-progress-bar" value={progress} max="100" />
         </div>
 
         {/* Remaining */}
-
-        <div className="mt-5 flex items-center gap-2">
+        <div className="goal-remaining">
           <Wallet size={18} />
-
           {remaining > 0 ? (
             <p>
               <span className="font-semibold">${remaining.toFixed(2)}</span>{" "}
@@ -90,18 +84,16 @@ export default function GoalCard() {
         </div>
 
         {/* Add Savings */}
-
         {progress < 100 && (
-          <div className="mt-6 flex gap-3">
+          <div className="goal-add-savings-row">
             <input
               type="number"
               placeholder="Add savings"
-              className="input input-bordered flex-1"
+              className="goal-add-savings-input"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
-
-            <button className="btn btn-primary" onClick={handleAddSavings}>
+            <button className="goal-add-savings-btn" onClick={handleAddSavings}>
               <Plus size={18} />
               Add
             </button>
@@ -109,9 +101,8 @@ export default function GoalCard() {
         )}
 
         {/* Completed */}
-
         {progress >= 100 && (
-          <div className="alert alert-success mt-6">
+          <div className="goal-completed-alert">
             <span>Congratulations! You achieved your savings goal.</span>
           </div>
         )}
