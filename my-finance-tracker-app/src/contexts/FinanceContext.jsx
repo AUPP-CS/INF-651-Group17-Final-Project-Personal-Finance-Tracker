@@ -97,6 +97,13 @@ export function FinanceProvider({ children }) {
         }));
     };
 
+    // Reset everything back to a fresh app state
+    const resetAll = () => {
+        setTransactions([]);
+        setBudgets([]);
+        setGoal({});
+    };
+
     // Dashboard Calculations
     const totalIncome = useMemo(() => {
         return transactions
@@ -187,6 +194,7 @@ export function FinanceProvider({ children }) {
 
         updateGoal,
         addSavings,
+        resetAll,
 
         totalIncome,
         totalExpense,

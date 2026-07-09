@@ -9,9 +9,9 @@ import SwitchTheme from "./components/SwitchTheme";
 function App() {
   return (
     <>
-      <div className="fixed top-6 right-6 z-99">
+      {/* <div className="fixed top-6 right-6 z-99">
           <SwitchTheme />
-        </div>
+        </div> */}
       <div className="lg:flex min-h-screen">
         <Sidebar />
         <main className="min-w-0 flex-1">

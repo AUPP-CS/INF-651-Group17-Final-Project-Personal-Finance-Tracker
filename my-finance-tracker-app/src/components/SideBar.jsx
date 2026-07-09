@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
+import ResetButton from "./ResetButton";
+import SwitchTheme from "./SwitchTheme";
 import {
   LayoutDashboard,
   ArrowLeftRight,
   Wallet,
   Target,
   BarChart3,
-  LogOut,
 } from "lucide-react";
 
 const LINKS = [
@@ -20,33 +21,33 @@ const LINKS = [
 export default function Sidebar() {
   return (
     <>
-    <aside className="hidden lg:flex w-64 shrink-0 flex-col justify-between bg-base-100 border-r border-base-300 min-h-screen p-5">
+    {/* Desktop: vertical sidebar, pinned to the left */}
+    <aside className="sidebar">
       <div>
-        <div className="flex items-center gap-2 mb-8 px-1">
-          <img 
-            src="/src/assets/logo.png"
-            alt="Financial Tracker Logo" 
-            className="w-12 h-12 rounded-xl object-cover"
-          />
-          <span className="text-xl font-bold tracking-tight">Financial Tracker</span>
+        <div className="sidebar-header">
+          <div className="sidebar-brand">
+            <img 
+              src="/src/assets/logo.png"
+              alt="Financial Tracker Logo" 
+              className="sidebar-logo"
+            />
+            <span className="sidebar-title">Financial Tracker</span>
+          </div>
+          <div className="theme-toggle">
+            <SwitchTheme />
+          </div>
         </div>
         
-        <p className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-base-content/50">
-          Overview
-        </p>
+        <p className="sidebar-section-label">Overview</p>
 
-          <nav className="flex flex-col gap-1">
+          <nav className="sidebar-nav">
             {LINKS.map(({ to, label, icon: Icon, end }) => (
               <NavLink
                 key={to}
                 to={to}
                 end={end}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-primary text-primary-content"
-                      : "text-base-content/70 hover:bg-base-200"
-                  }`
+                  `nav-link ${isActive ? "nav-link-active" : "nav-link-inactive"}`
                 }
               >
                 <Icon size={18} />
@@ -56,34 +57,27 @@ export default function Sidebar() {
           </nav>
         </div>
 
-        <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-error hover:bg-error/10">
-          <LogOut size={18} />
-          Logout
-        </button>
+        <ResetButton variant="sidebar" />
       </aside>
 
       {/* Mobile / tablet: horizontal bar, pinned to the top */}
-      <header className="flex lg:hidden sticky top-0 z-30 items-center gap-1 bg-base-100 border-b border-base-300 px-3 py-2 overflow-x-auto">
-        <div className="flex items-center gap-2 mr-2 shrink-0">
+      <header className="mobile-topbar">
+        <div className="mobile-top-bar-brand">
           <img
             src="/src/assets/logo.png"
             alt="Financial Tracker Logo"
-            className="w-8 h-8 rounded-lg object-cover"
+            className="mobile-topbar-logo"
           />
         </div>
 
-        <nav className="flex items-center gap-1 flex-1">
+        <nav className="mobile-topbar-nav">
           {LINKS.map(({ to, label, icon: Icon, end }) => (
             <NavLink
               key={to}
               to={to}
               end={end}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[11px] font-medium whitespace-nowrap transition-colors shrink-0 ${
-                  isActive
-                    ? "bg-primary text-primary-content"
-                    : "text-base-content/70 hover:bg-base-200"
-                }`
+                `mobile-nav-link ${isActive ? "mobile-nav-link-active" : "mobile-nav-link-inactive"}`
               }
             >
               <Icon size={18} />
@@ -92,8 +86,10 @@ export default function Sidebar() {
           ))}
         </nav>
 
-        <button className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-error shrink-0">
-        </button>
+        <div className="theme-toggle shrink-0">
+          <SwitchTheme />
+        </div>
+        <ResetButton variant="mobile" />
       </header>
     </>
   )
