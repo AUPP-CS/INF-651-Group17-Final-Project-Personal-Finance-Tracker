@@ -7,7 +7,7 @@ export default function Budgets() {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2 mt-10">
+      <div className="grid grid-cols-1 gap-6 w-full lg:grid-cols-2 mt-10">
 
         {/* Add Budget Card */}
         <AddBudget />

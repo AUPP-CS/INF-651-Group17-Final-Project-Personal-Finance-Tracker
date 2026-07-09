@@ -19,6 +19,7 @@ const LINKS = [
 
 export default function Sidebar() {
   return (
+    <>
     <aside className="hidden lg:flex w-64 shrink-0 flex-col justify-between bg-base-100 border-r border-base-300 min-h-screen p-5">
       <div>
         <div className="flex items-center gap-2 mb-8 px-1">
@@ -34,14 +35,51 @@ export default function Sidebar() {
           Overview
         </p>
 
-        <nav className="flex flex-col gap-1">
+          <nav className="flex flex-col gap-1">
+            {LINKS.map(({ to, label, icon: Icon, end }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={end}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-primary text-primary-content"
+                      : "text-base-content/70 hover:bg-base-200"
+                  }`
+                }
+              >
+                <Icon size={18} />
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+
+        <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-error hover:bg-error/10">
+          <LogOut size={18} />
+          Logout
+        </button>
+      </aside>
+
+      {/* Mobile / tablet: horizontal bar, pinned to the top */}
+      <header className="flex lg:hidden sticky top-0 z-30 items-center gap-1 bg-base-100 border-b border-base-300 px-3 py-2 overflow-x-auto">
+        <div className="flex items-center gap-2 mr-2 shrink-0">
+          <img
+            src="/src/assets/logo.png"
+            alt="Financial Tracker Logo"
+            className="w-8 h-8 rounded-lg object-cover"
+          />
+        </div>
+
+        <nav className="flex items-center gap-1 flex-1">
           {LINKS.map(({ to, label, icon: Icon, end }) => (
             <NavLink
               key={to}
               to={to}
               end={end}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                `flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[11px] font-medium whitespace-nowrap transition-colors shrink-0 ${
                   isActive
                     ? "bg-primary text-primary-content"
                     : "text-base-content/70 hover:bg-base-200"
@@ -53,12 +91,11 @@ export default function Sidebar() {
             </NavLink>
           ))}
         </nav>
-      </div>
 
-      <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-error hover:bg-error/10">
-        <LogOut size={18} />
-        Logout
-      </button>
-    </aside>
-  );
+        <button className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-error shrink-0">
+          <LogOut size={18} />
+        </button>
+      </header>
+    </>
+  )
 }
