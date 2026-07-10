@@ -1,7 +1,7 @@
 # Financial Tracker — Personal Finance Tracker
 
 A React dashboard for tracking income, expenses, budgets, and savings goals — built for INF 651, Group 17.
-Group members: Tith Kiry, Chhin Sokhom Sidhisakdeh, Sam Chankroesna
+Group members: Nguon Tithkiry, Chhin Sokhom Sidhisakdeh, Sam Chankroesna
 
 **Live app:** `https://inf-651-group17-final-project-personal-finance-track-i87kow2od.vercel.app/`
 **Repo:** `https://github.com/AUPP-CS/INF-651-Group17-Final-Project-Personal-Finance-Tracker`
