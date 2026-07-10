@@ -30,6 +30,8 @@ export function FinanceProvider({ children }) {
         type: "All",
         search: "",
         sort: "Newest",
+        startDate: "",
+        endDate: "",
     });
 
     // Transaction CRUD
@@ -151,6 +153,18 @@ export function FinanceProvider({ children }) {
                 transaction.title
                     .toLowerCase()
                     .includes(filters.search.toLowerCase())
+            );
+        }
+
+        if (filters.startDate) {
+            data = data.filter(
+                (transaction) => new Date(transaction.date) >= new Date(filters.startDate)
+            );
+        }
+
+        if (filters.endDate) {
+            data = data.filter(
+                (transaction) => new Date(transaction.date) <= new Date(filters.endDate)
             );
         }
 

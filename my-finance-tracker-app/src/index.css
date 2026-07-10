@@ -287,3 +287,95 @@ analytics
 .chart-empty-state {
   @apply text-base-content/60 py-16 text-center;
 }
+
+/* 
+Back-to-home button — same pattern as reset-link.
+*/
+
+.sidebar-footer {
+  @apply flex flex-col gap-1;
+}
+
+.back-home-link {
+  @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-base-content/70;
+}
+
+.back-home-link:hover {
+  @apply bg-base-200;
+}
+
+.back-home-link-mobile {
+  @apply flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[11px] font-medium text-base-content/70 shrink-0;
+}
+
+/* 
+Home / landing page
+*/
+
+.home-page {
+  @apply min-h-screen bg-base-200;
+}
+
+.home-topbar {
+  @apply flex items-center justify-between px-6 py-4 bg-base-100 border-b border-base-300;
+}
+
+.home-brand {
+  @apply flex items-center gap-2;
+}
+
+.home-logo {
+  @apply w-10 h-10 rounded-xl object-cover;
+}
+
+.home-brand-name {
+  @apply text-lg font-bold tracking-tight;
+}
+
+.home-hero {
+  @apply flex flex-col items-center text-center gap-5 px-6 py-20 max-w-2xl mx-auto;
+}
+
+.home-hero-title {
+  @apply text-4xl md:text-5xl font-bold tracking-tight;
+}
+
+.home-hero-subtitle {
+  @apply text-base-content/70 text-lg;
+}
+
+.home-features {
+  @apply grid gap-6 sm:grid-cols-3 max-w-5xl mx-auto px-6 pb-20;
+}
+
+.home-feature-card {
+  @apply card bg-base-100 shadow-lg p-6;
+}
+
+.home-feature-icon {
+  @apply w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-3;
+}
+
+.home-feature-title {
+  @apply font-semibold text-lg mb-1;
+}
+
+.home-feature-body {
+  @apply text-sm text-base-content/70;
+}
+
+/* 
+404 page
+*/
+
+.not-found-page {
+  @apply min-h-screen flex flex-col items-center justify-center gap-3 text-center px-6;
+}
+
+.not-found-title {
+  @apply text-6xl font-bold;
+}
+
+.not-found-body {
+  @apply text-base-content/70 mb-2;
+}

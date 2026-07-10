@@ -32,6 +32,8 @@ export default function CategoryFilter() {
       category: "All",
       type: "All",
       sort: "Newest",
+      startDate: "",
+      endDate: "",
     });
   };
 
@@ -122,6 +124,34 @@ export default function CategoryFilter() {
 
               <option value="Oldest">Oldest First</option>
             </select>
+          </div>
+          {/* Date range */}
+          <div>
+            <label className="label">
+              <span className="label-text">From</span>
+            </label>
+
+            <input
+              type="date"
+              className="input input-bordered w-full"
+              name="startDate"
+              value={filters.startDate}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <label className="label">
+              <span className="label-text">To</span>
+            </label>
+
+            <input
+              type="date"
+              className="input input-bordered w-full"
+              name="endDate"
+              value={filters.endDate}
+              onChange={handleChange}
+            />
           </div>
         </div>
 

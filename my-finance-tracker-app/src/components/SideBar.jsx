@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import ResetButton from "./ResetButton";
+import BackHomeButton from "./BackHomeButton";
 import SwitchTheme from "./SwitchTheme";
 import {
   LayoutDashboard,
@@ -10,7 +11,7 @@ import {
 } from "lucide-react";
 
 const LINKS = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/transactions", label: "Transactions", icon: ArrowLeftRight },
   { to: "/budgets", label: "Budget", icon: Wallet },
   { to: "/goals", label: "Savings Goals", icon: Target },
@@ -56,12 +57,15 @@ export default function Sidebar() {
           </nav>
         </div>
 
-        <ResetButton variant="sidebar" />
+        <div className="sidebar-footer">
+          <BackHomeButton variant="sidebar" />
+          <ResetButton variant="sidebar" />
+        </div>
       </aside>
 
       {/* Mobile / tablet: horizontal bar, pinned to the top */}
       <header className="mobile-topbar">
-        <div className="mobile-top-bar-brand">
+        <div className="mobile-topbar-brand">
           <img
             src="/src/assets/logo.png"
             alt="Financial Tracker Logo"
@@ -88,6 +92,7 @@ export default function Sidebar() {
         <div className="theme-toggle shrink-0">
           <SwitchTheme />
         </div>
+        <BackHomeButton variant="mobile" />
         <ResetButton variant="mobile" />
       </header>
     </>

@@ -1,6 +1,16 @@
+import { useTheme } from "../contexts/ThemeContext";
+
 export default function SwitchTheme() {
+  const  { theme, toggleTheme } = useTheme();
+  
   return (
     <label className="swap swap-rotate">
+      <input
+        type="checkbox"
+        className="theme-controller"
+        checked={theme === "dark"}
+        onChange={toggleTheme}
+      />
       {/* this hidden checkbox controls the state */}
       <input type="checkbox" className="theme-controller" value="dark" />
 
@@ -24,3 +34,4 @@ export default function SwitchTheme() {
     </label>
   );
 }
+
