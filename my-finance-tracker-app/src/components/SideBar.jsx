@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import ResetButton from "./ResetButton";
 import BackHomeButton from "./BackHomeButton";
 import SwitchTheme from "./SwitchTheme";
+import logo from "../assets/logo.png"
 import {
   LayoutDashboard,
   ArrowLeftRight,
@@ -27,7 +28,7 @@ export default function Sidebar() {
         <div className="sidebar-header">
           <div className="sidebar-brand">
             <img 
-              src="/src/assets/logo.png"
+              src={logo}
               alt="Financial Tracker Logo" 
               className="sidebar-logo"
             />
@@ -67,7 +68,7 @@ export default function Sidebar() {
       <header className="mobile-topbar">
         <div className="mobile-topbar-brand">
           <img
-            src="/src/assets/logo.png"
+            src={logo}
             alt="Financial Tracker Logo"
             className="mobile-topbar-logo"
           />

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Wallet, PieChart, Target, ArrowRight } from "lucide-react";
 import SwitchTheme from "../components/SwitchTheme";
+import logo from "../assets/logo.png"
 
 const FEATURES = [
   {
@@ -27,7 +28,7 @@ export default function Home() {
     <div className="home-page">
       <div className="home-topbar">
         <div className="home-brand">
-          <img src="/src/assets/logo.png" alt="Financial Tracker Logo" className="home-logo" />
+          <img src={logo} alt="Financial Tracker Logo" className="home-logo" />
           <span className="home-brand-name">Financial Tracker</span>
         </div>
         <div className="theme-toggle">
